@@ -53,7 +53,7 @@ export default function Home(props: { allRuns: Run[] }) {
     <PageWrapper>
       <h1 className="title">Run Data</h1>
       {/* <input type="text" value={name} onChange={(e) => setName(e.target.value)} /> */}
-      <div className="horizontal-container">
+      <div className="flex flex-row justify-around content-center">
         <ul className="run-data">
           <li>Runs: {runs.length}</li>
           <li>Total Milage: {runs.reduce((acc: any, run: any) => acc += run.distance, 0) / 1609.34}</li>
