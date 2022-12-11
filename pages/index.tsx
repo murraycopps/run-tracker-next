@@ -49,23 +49,26 @@ export default function Home(props: { allRuns: Run[] }) {
     setRuns(filteredRuns);
   }, [name]);
 
+  
   return (
     <PageWrapper>
       <h1 className="title">Run Data</h1>
       {/* <input type="text" value={name} onChange={(e) => setName(e.target.value)} /> */}
-      <div className="flex flex-row justify-around content-center">
-        <ul className="run-data">
+      <div className="flex flex-row justify-around content-center flex-wrap gap-4 px-4 small-screen-switch-flex-col">
+        <ul className="run-data p-8">
+          <li className="list-title mx-auto">Total:</li>
           <li>Runs: {runs.length}</li>
           <li>Total Milage: {runs.reduce((acc: any, run: any) => acc += run.distance, 0) / 1609.34}</li>
           <li>Total Time: {outTime(runs.reduce((acc: any, run: any) => acc += run.time, 0))}</li>
           <li>Pace: {outTime(runs.reduce((acc: any, run: any) => acc += run.time, 0) / runs.reduce((acc: any, run: any) => acc += run.distance, 0) * 1609.34)}</li>
-        </ul>
-        <ul className="run-data">
-          <li>Weekly Runs: {weekRuns.length}</li>
-          <li>Weekly Milage: {weekRuns.reduce((acc: any, run: any) => acc += run.distance, 0) / 1609.34}</li>
-          <li>Weekly Time: {outTime(weekRuns.reduce((acc: any, run: any) => acc += run.time, 0))}</li>
-          <li>Weekly Pace: {outTime(weekRuns.reduce((acc: any, run: any) => acc += run.time, 0) / weekRuns.reduce((acc: any, run: any) => acc += run.distance, 0) * 1609.34)}</li>
           <li>Longest Run: {Math.max(...runs.map(a => a.distance)) / 1609.34}</li>
+        </ul>
+        <ul className="run-data p-8">
+          <li className="list-title">Weekly:</li>
+          <li>Weekly Runs: {weekRuns.length}</li>
+          <li>Weekly Milage: {weekRuns.reduce((acc: any, run: any) => acc += run.distance, 0) / 1609.34} miles</li>
+          <li>Weekly Time: {outTime(weekRuns.reduce((acc: any, run: any) => acc += run.time, 0) / 60)}</li>
+          <li>Weekly Pace: {outTime(weekRuns.reduce((acc: any, run: any) => acc += run.time, 0) / weekRuns.reduce((acc: any, run: any) => acc += run.distance, 0) * 1609.34)}</li>
         </ul>
       </div>
 
