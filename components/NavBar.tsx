@@ -2,6 +2,8 @@ import Link from "next/link";
 import styles from "../styles/NavBar.module.css";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -21,11 +23,17 @@ export default function NavBar() {
             {isOpen || !isBreakpoint ? <div className={styles.navbar}>
                 <span className={styles.navbarBorder} />
                 <Link className={`${styles.navbarElement}  ${path == '/' ? styles.current : ''}`} href="/">
+                    <FontAwesomeIcon icon={faHome} />
                     <div>Home</div>
+                </Link>
+                {!isBreakpoint ? <span className="flex-grow"></span> : null}
+                <span className={styles.navbarBorder} />
+                <Link className={`${styles.navbarElement}  ${path == '/runs' ? styles.current : ''}`} href="/runs">
+                    <div>All Runs</div>
                 </Link>
                 <span className={styles.navbarBorder} />
                 <Link className={`${styles.navbarElement}  ${path == '/new' ? styles.current : ''}`} href="/new">
-                    <div>New {isBreakpoint ? "" : "Run"}</div>
+                    <div>New Run</div>
                 </Link>
                 <span className={styles.navbarBorder} />
             </div> : null}

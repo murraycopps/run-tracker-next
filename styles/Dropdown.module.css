@@ -3,10 +3,9 @@
     margin-bottom: 0;
     position: relative;
     vertical-align: middle;
-    min-height: 2em;
     font-weight: 400;
     line-height: 1.42857143;
-    color: #333;
+    color: white;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -37,7 +36,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    padding-left: 1em;
+    padding-left: 1rem;
 }
 
 .dropdown.open {
@@ -52,8 +51,6 @@
     margin-bottom: 0;
     position: relative;
     width: 100%;
-    display: block;
-    padding: 0.25em 0.5em;
     clear: both;
     font-weight: 400;
     line-height: 1.42857143;
@@ -64,6 +61,7 @@
     z-index: 100;
     box-sizing: border-box;
     margin: 0;
+    height: 3rem;
 }
 
 .dropdownItem:hover {
@@ -84,14 +82,11 @@
     height: 0;
     border-left: 0.3em solid transparent;
     border-right: 0.3em solid transparent;
-    border-top: 0.3em solid black;
+    border-top: 0.3em solid white;
     transition: .5s;
 }
 
 .dropdown.open .arrow {
     transform: scale(1, -1);
     top: calc(50% - 0.3em);
-}
-.navbarDropdownContent{
-    height: 3rem;
 }

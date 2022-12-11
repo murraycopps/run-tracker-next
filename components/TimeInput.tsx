@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import styles from '../styles/TimeInput.module.css'
 export default function TimeInput({ value, onChange, className = "" }: { value: number, onChange: (value: number) => void, className?: string }) {
     const [hour, setHour] = useState(Math.floor(value / 3600))
     const [min, setMin] = useState(Math.floor(value / 60 % 60))
     const [sec, setSec] = useState(value % 60)
+
     useEffect(() => {
         onChange(hour * 3600 + min * 60 + sec)
     }, [hour, min, sec])
