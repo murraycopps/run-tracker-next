@@ -1,0 +1,42 @@
+
+.timeInput {
+    width: 50%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 2rem;
+    text-align: center;
+    background: transparent;
+    color: inherit;
+  }
+  
+  .timeInput:focus {
+    border: none;
+    outline: none;
+  }
+  
+  .timeInputField {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    background: white;
+    border-radius: 50vh;
+    font-size: 2rem;
+    color: black;
+    border: 2px solid rgb(118, 118, 118);
+  }
+
+  
+  .timeInputSeparator {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    position: relative;
+    top: -0.144em;
+  }

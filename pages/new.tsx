@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PageWrapper from "../components/PageWrapper";
 
 export default function New() {
     const [name, setName] = useState("");
@@ -45,7 +46,7 @@ export default function New() {
 
 
     return (
-        <div>
+        <PageWrapper>
             <h1>New Run</h1>
             <form onSubmit={submitForm}>
                 <label htmlFor="name">Name</label>
@@ -65,6 +66,6 @@ export default function New() {
                 <button type="submit">Submit</button>
             </form>
 
-        </div>
+        </PageWrapper>
     )
 }
