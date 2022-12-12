@@ -6,6 +6,9 @@ export default function TimeInput({ value, onChange, className = "" }: { value: 
     const [sec, setSec] = useState(value % 60)
 
     useEffect(() => {
+        if(hour < 0) setHour(0)
+        if(min < 0) setMin(0)
+        if(sec < 0) setSec(0)
         onChange(hour * 3600 + min * 60 + sec)
     }, [hour, min, sec, onChange])
 
