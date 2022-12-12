@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import PageWrapper from '../../components/PageWrapper'
@@ -24,6 +25,18 @@ export default function Post(props: { allRuns: Run[] }) {
     setRun(newRun);
   }, [props.allRuns, pid]);
 
+  const deleteRun = () => {
+    fetch(`${server}/api/runs`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(run)
+    }).then(() => {
+      router.push('/runs')
+    })
+  }
+
   return (
     <PageWrapper>
       <h1 className="title m-12">Run Data</h1>
@@ -37,6 +50,9 @@ export default function Post(props: { allRuns: Run[] }) {
           <li>Notes: {run.notes}</li>
         </ul>
       </div>
+      <Link href={`../edit/${pid}`}><button className="btn btn-primary">Edit</button></Link>
+      
+      <button className="btn btn-primary" onClick={deleteRun}>Delete</button>
 
     </PageWrapper>
   )
