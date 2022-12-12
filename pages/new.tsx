@@ -4,11 +4,10 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 import TimeInput from "../components/TimeInput";
 import { server } from "../config";
-
-const currentDate = new Date();
+import { safeDate } from "../scripts/scripts";
 
 export default function New() {
-    const [date, setDate] = useState(currentDate);
+    const [date, setDate] = useState(safeDate(new Date()));
     const [time, setTime] = useState(0);
 
 
@@ -24,12 +23,12 @@ export default function New() {
         if (!name || !distance || !time || !date || !notes) return alert("Please fill out all fields")
         if (distance < 0) return alert("Distance must be greater than 0")
         if (time < 0) return alert("Time must be greater than 0")
-        if (new Date(date).getTime() > new Date().getTime()) return alert("Date cannot be in the future")
+        if (new Date(safeDate(date)).getTime() > new Date(safeDate(new Date)).getTime()) return alert("Date cannot be in the future")
 
         e.target.name.value = "";
         e.target.distance.value = "";
         setTime(0);
-        setDate(new Date());
+        setDate(safeDate(new Date()));
         e.target.notes.value = "";
         e.target.shoes.value = "";
 
@@ -72,7 +71,7 @@ export default function New() {
                         <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
                             <label htmlFor="date" className="new-label">Date:</label>
                             <div className="new-input no-padding">
-                                <DatePicker className="w-full h-12" selected={date} onChange={(date : Date) => setDate(date)} />
+                                <DatePicker className="w-full h-12" selected={new Date (safeDate(date))} onChange={(date: Date) => setDate(safeDate(date))} />
                             </div>
                         </li>
                         <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
@@ -80,9 +79,9 @@ export default function New() {
                             <input type="text" name="shoes" id="shoes" className="new-input" />
                         </li>
                         <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
-                            <button type="submit" className="new-input" style={{width: "100%"}}>Submit</button>
+                            <button type="submit" className="new-input" style={{ width: "100%" }}>Submit</button>
                         </li>
-                        
+
                     </ul>
                 </form>
             </div>
