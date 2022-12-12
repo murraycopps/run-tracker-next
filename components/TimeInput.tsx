@@ -7,7 +7,7 @@ export default function TimeInput({ value, onChange, className = "" }: { value: 
 
     useEffect(() => {
         onChange(hour * 3600 + min * 60 + sec)
-    }, [hour, min, sec])
+    }, [hour, min, sec, onChange])
 
     useEffect(() => {
         setHour(Math.floor(value / 3600))

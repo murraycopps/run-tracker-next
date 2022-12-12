@@ -19,8 +19,8 @@ export default function NavBar() {
         else {
             document.body.style.overflow = 'unset';
         }
-    }, [isOpen])
-    
+    }, [isOpen, isBreakpoint])
+
     useEffect(() => {
         setIsOpen(false);
     }, [path, isBreakpoint])
@@ -75,7 +75,7 @@ const useMediaQuery = (width: any) => {
         }
 
         return () => media.removeListener(updateTarget);
-    }, []);
+    }, [updateTarget, width]);
 
     return targetReached;
 };

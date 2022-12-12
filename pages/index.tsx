@@ -57,7 +57,7 @@ export default function Home(props: { allRuns: Run[] }) {
     let i = 0
     const newFilteredRuns = runs.filter((run: any) => run.name.toLowerCase().includes(name.toLowerCase()) && i++ < 10)
     setFilteredRuns(newFilteredRuns);
-  }, [name]);
+  }, [name, runs]);
 
 
   return (

@@ -99,7 +99,7 @@ export default function Runs(props: { allRuns: Run[] }) {
         })
 
         setRuns(sortedRuns);
-    }, [props.allRuns]);
+    }, [props.allRuns, sortType, runs]);
 
     useEffect(() => {
         const newFilteredRuns = runs.filter((run: any, i: Number) => run[constraintType].toLowerCase().includes(constraint.toString().toLowerCase()))
@@ -119,7 +119,7 @@ export default function Runs(props: { allRuns: Run[] }) {
         if (recentRunsRef.current) recentRunsRef.current.style.marginTop = "20px";
         window.addEventListener("scroll", onScroll);
         return () => window.removeEventListener("scroll", onScroll);
-    }, [isBreakpoint]);
+    }, [isBreakpoint, onScroll]);
 
     return (
         <PageWrapper>
@@ -208,7 +208,7 @@ const useMediaQuery = (width: any) => {
         }
 
         return () => media.removeListener(updateTarget);
-    }, []);
+    }, [updateTarget, width]);
 
     return targetReached;
 };

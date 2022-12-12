@@ -22,7 +22,7 @@ export default function Post(props: { allRuns: Run[] }) {
   useEffect(() => {
     const newRun = props.allRuns.find((run: any) => run._id === pid) || {} as Run;
     setRun(newRun);
-  }, [props.allRuns]);
+  }, [props.allRuns, pid]);
 
   return (
     <PageWrapper>
