@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Dropdown from "../components/Dropdown";
 import PageWrapper from "../components/PageWrapper";
 import { outTime } from "../scripts/scripts";
@@ -21,6 +21,9 @@ export default function Runs(props: { allRuns: Run[] }) {
     const [filteredRuns, setFilteredRuns] = useState(props.allRuns.filter((run: any, i: Number) => run[constraintType].toLowerCase().includes(constraint.toString().toLowerCase())));
     const [startingIndex, setStartingIndex] = useState(0);
     const [pageArray, setPageArray] = useState([] as number[]);
+    const [sortType, setSortType] = useState("date");
+
+    const isBreakpoint = useMediaQuery(768)
 
     const dropdownOptions = [
         { value: "name", label: "Name" },
@@ -28,12 +31,34 @@ export default function Runs(props: { allRuns: Run[] }) {
         { value: "shoes", label: "Shoes" },
     ]
 
-
+    const sortDropdownOptions = [
+        { value: "date", label: "Date" },
+        { value: "distance", label: "Distance" },
+        { value: "time", label: "Time" },
+    ]
 
     useEffect(() => {
-        pageArray.length = Math.ceil(filteredRuns.length / 10);
-        pageArray.fill(0);
-    }, [filteredRuns]);
+        const length = Math.ceil(filteredRuns.length / 10);
+        if (length > 5) {
+            const currentPage = Math.floor(startingIndex / 10);
+            if (currentPage < 2) {
+                setPageArray([0, 1, 2, 3, length - 1]);
+            }
+            else if (currentPage > length - 3) {
+                setPageArray([0, length - 4, length - 3, length - 2, length - 1]);
+            }
+            else {
+                setPageArray([0, currentPage - 1, currentPage, currentPage + 1, length - 1]);
+            }
+        }
+        else {
+            const newPageArray = [];
+            for (let i = 0; i < length; i++) {
+                newPageArray.push(i);
+            }
+            setPageArray(newPageArray);
+        }
+    }, [filteredRuns, startingIndex]);
 
     const searchBarRef = useRef<HTMLDivElement>(null);
     const recentRunsRef = useRef<HTMLUListElement>(null);
@@ -42,49 +67,82 @@ export default function Runs(props: { allRuns: Run[] }) {
         const scrollY = window.scrollY;
         const titleHeight = document.querySelector(".title")?.clientHeight;
         if (!titleHeight) return
-        if (scrollY > titleHeight + 120) {
-            searchBarRef.current?.classList.add("set-fixed");
-            if (recentRunsRef.current) recentRunsRef.current.style.marginTop = "152px";
+        if (!isBreakpoint) {
+            if (scrollY > titleHeight + 128) {
+                searchBarRef.current?.classList.add("set-fixed");
+                if (recentRunsRef.current) recentRunsRef.current.style.marginTop = `${titleHeight + 40}px`;
+            }
+            else {
+                searchBarRef.current?.classList.remove("set-fixed");
+                if (recentRunsRef.current) recentRunsRef.current.style.marginTop = "20px";
+            }
         }
         else {
-            searchBarRef.current?.classList.remove("set-fixed");
-            if (recentRunsRef.current) recentRunsRef.current.style.marginTop = "20px";
+            if (scrollY > titleHeight + 32) {
+                searchBarRef.current?.classList.add("set-fixed-short");
+                if (recentRunsRef.current) recentRunsRef.current.style.marginTop = `${searchBarRef.current?.clientHeight! - 60}px`;
+            }
+            else {
+                searchBarRef.current?.classList.remove("set-fixed-short");
+                if (recentRunsRef.current) recentRunsRef.current.style.marginTop = "20px";
+            }
         }
     }
 
     useEffect(() => {
-        const sortedRuns = props.allRuns.sort((a: any, b: any) => {
-            return new Date(b.date).getTime() - new Date(a.date).getTime();
+        const sortedRuns = runs.sort((a: any, b: any) => {
+            if (sortType === "date") return new Date(b.date).getTime() - new Date(a.date).getTime();
+            else if (sortType === "distance") return b.distance - a.distance;
+            else if (sortType === "time") return b.time - a.time;
+            else return 0;
         })
+
         setRuns(sortedRuns);
     }, [props.allRuns]);
 
     useEffect(() => {
-        const newFilteredRuns = runs.filter((run: any, i: Number) => run[constraintType].toLowerCase().includes(constraint.toString().toLowerCase()) && i < 10)
+        const newFilteredRuns = runs.filter((run: any, i: Number) => run[constraintType].toLowerCase().includes(constraint.toString().toLowerCase()))
+        newFilteredRuns.sort((a: any, b: any) => {
+            if (sortType === "date") return new Date(b.date).getTime() - new Date(a.date).getTime();
+            else if (sortType === "distance") return b.distance - a.distance;
+            else if (sortType === "time") return b.time - a.time;
+            else return 0;
+        })
         setFilteredRuns(newFilteredRuns);
-    }, [constraint, constraintType, runs]);
+    }, [constraint, constraintType, runs, sortType]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+        searchBarRef.current?.classList.remove("set-fixed-short");
+        searchBarRef.current?.classList.remove("set-fixed");
+        if (recentRunsRef.current) recentRunsRef.current.style.marginTop = "20px";
         window.addEventListener("scroll", onScroll);
         return () => window.removeEventListener("scroll", onScroll);
-    }, []);
-
-
+    }, [isBreakpoint]);
 
     return (
         <PageWrapper>
             {runs ? <div className="flex flex-col justify-center items-center w-full">
                 <h1 className="title m-12">Runs</h1>
                 <div className="search-bar" ref={searchBarRef}>
-                    <input type="text" className="search-input" placeholder="Search" value={constraint} onChange={(e) => setConstraint(e.target.value)} />
-                    <Dropdown items={dropdownOptions} value={constraintType} setValue={setConstraintType} className="search-input search-dropdown" />
-                    {runs.length > 10 ? <div className="flex justify-center items-center gap-1">
-                        {startingIndex > 0 ? <button className="btn" onClick={() => setStartingIndex(startingIndex - 10)}>Previous</button> : null}
+                    {!isBreakpoint ?
+                        <div className="search-input no-padding">
+                            <input type="text" className="search-input-field" placeholder="Search" value={constraint} onChange={(e) => setConstraint(e.target.value)} />
+                            <Dropdown items={dropdownOptions} value={constraintType} setValue={setConstraintType} className="search-dropdown-field" />
+                        </div> : <>
+                            <input type="text" className="search-input" placeholder="Search" value={constraint} onChange={(e) => setConstraint(e.target.value)} />
+                            <Dropdown items={dropdownOptions} value={constraintType} setValue={setConstraintType} className="search-dropdown" />
+                        </>
+                    }
+                    <div className="flex justify-center items-center gap-4 text-3xl"> Sort by: </div>
+                    <Dropdown items={sortDropdownOptions} value={sortType} setValue={setSortType} className="search-input search-dropdown" />
+                    {runs.length > 10 ? <div className="flex justify-center items-center mt-2 gap-4 width-clamp">
+                        <button style={{ textAlign: "left" }} className={"page-btn " + ((startingIndex > 0 ? "" : "transparent"))} onClick={() => { if (startingIndex > 0) setStartingIndex(startingIndex - 10) }}>{'<'}</button>
                         {pageArray.map((page, i) => {
-                            return <button className="btn" onClick={() => setStartingIndex(i * 10)}
-                                key={i.toString()}>{i + 1}</button>
+                            return <button className="page-btn" onClick={() => setStartingIndex(page * 10)}
+                                key={i.toString()}>{page + 1}</button>
                         })}
-                        {startingIndex < runs.length - 10 ? <button className="btn" onClick={() => setStartingIndex(startingIndex + 10)}>Next</button> : null}
+                        <button style={{ textAlign: "right" }} className={"page-btn " + (startingIndex < filteredRuns.length - 10 ? "" : "transparent")} onClick={() => { if (startingIndex < filteredRuns.length - 10) setStartingIndex(startingIndex + 10) }}>{'>'}</button>
                     </div> : null}
                 </div>
                 <ul className="recent-runs w-full" ref={recentRunsRef}>
@@ -126,3 +184,30 @@ export async function getServerSideProps(context: any) {
         props: { allRuns },
     };
 }
+
+
+const useMediaQuery = (width: any) => {
+    const [targetReached, setTargetReached] = useState(false);
+
+    const updateTarget = useCallback((e: { matches: any; }) => {
+        if (e.matches) {
+            setTargetReached(true);
+        } else {
+            setTargetReached(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        const media = window.matchMedia(`(max-width: ${width}px)`);
+        media.addListener(updateTarget);
+
+        // Check on mount (callback is not called until a change occurs)
+        if (media.matches) {
+            setTargetReached(true);
+        }
+
+        return () => media.removeListener(updateTarget);
+    }, []);
+
+    return targetReached;
+};

@@ -12,6 +12,19 @@ export default function NavBar() {
     const isBreakpoint = useMediaQuery(768);
     const [isOpen, setIsOpen] = useState(false);
 
+    useEffect(() => {
+        if (isOpen && isBreakpoint) {
+            document.body.style.overflow = 'hidden';
+        }
+        else {
+            document.body.style.overflow = 'unset';
+        }
+    }, [isOpen])
+    
+    useEffect(() => {
+        setIsOpen(false);
+    }, [path, isBreakpoint])
+
 
     return (
         <>
@@ -23,7 +36,7 @@ export default function NavBar() {
             {isOpen || !isBreakpoint ? <div className={styles.navbar}>
                 <span className={styles.navbarBorder} />
                 <Link className={`${styles.navbarElement}  ${path == '/' ? styles.current : ''}`} href="/">
-                    <FontAwesomeIcon icon={faHome} />
+                    {!isBreakpoint ? <FontAwesomeIcon icon={faHome} /> : null}
                     <div>Home</div>
                 </Link>
                 {!isBreakpoint ? <span className="flex-grow"></span> : null}

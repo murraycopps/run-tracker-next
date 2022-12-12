@@ -86,7 +86,24 @@ a {
   height: 3rem;
   font-size: 2rem;
   padding-inline: 1rem;
-  margin-block: 1rem;
+}
+
+.search-input-field {
+  width: 60%;
+  height: 100%;
+  font-size: 2rem;
+  padding-inline: 1rem;
+}
+
+.search-dropdown-field {
+  width: 40%;
+  height: 3rem;
+  font-size: 2rem;
+  padding-inline: 0;
+  margin: 0;
+  background: #3b3b3b;
+  position: absolute;
+  top: 0;
 }
 
 .search-dropdown {
@@ -94,7 +111,7 @@ a {
   height: 3rem;
   font-size: 2rem;
   padding-inline: 0;
-  margin-block: 1rem;
+  margin-block: .25rem;
   background: #3b3b3b;
 }
 
@@ -104,6 +121,16 @@ a {
   left: 0;
   width: 100%;
   padding-top: 5rem;
+  padding-bottom: 1rem;
+  height: auto;
+}
+
+.set-fixed-short{
+  position: fixed;
+  top: 0rem;
+  left: 0;
+  width: 100%;
+  padding-top: 4rem;
   padding-bottom: 1rem;
   height: auto;
 }
@@ -124,11 +151,27 @@ a {
 .new-notes {
   height: 10rem;
   font-size: 1.5rem;
-  padding-top: 1rem
+  padding-top: 1rem;
+  resize: none;
 }
 
 .no-padding {
   padding: 0;
+}
+
+.page-btn{
+  height: 3rem;
+  width: 1.5rem;
+  font-size: 2rem;
+}
+
+.transparent{
+  background: transparent;
+  color: transparent;
+}
+
+.width-clamp{
+  width: clamp(20rem, 50%, 40rem);
 }
 
 
@@ -157,6 +200,10 @@ a {
 
   .new-notes-label {
     margin-top: 0;
+    margin-inline: auto;
+  }
+
+  .new-notes {
     margin-inline: auto;
   }
 }

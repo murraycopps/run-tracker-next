@@ -1,10 +1,7 @@
 .dropdown {
     display: inline-block;
-    margin-bottom: 0;
     position: relative;
-    vertical-align: middle;
     font-weight: 400;
-    line-height: 1.42857143;
     color: white;
     -webkit-user-select: none;
     -ms-user-select: none;
@@ -46,14 +43,12 @@
 
 .dropdownItem {
     background-color: #fff;
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     display: inline-flex;
-    margin-bottom: 0;
     position: relative;
     width: 100%;
     clear: both;
     font-weight: 400;
-    line-height: 1.42857143;
     height: 2em;
     color: #333;
     white-space: nowrap;

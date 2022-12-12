@@ -77,7 +77,7 @@ export default function New() {
                             <input type="text" name="shoes" id="shoes" className="new-input" />
                         </li>
                         <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
-                            <button type="submit" className="new-input w-full">Submit</button>
+                            <button type="submit" className="new-input" style={{width: "100%"}}>Submit</button>
                         </li>
                         
                     </ul>
