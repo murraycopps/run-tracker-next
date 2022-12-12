@@ -3,6 +3,7 @@ import PageWrapper from "../components/PageWrapper";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 import TimeInput from "../components/TimeInput";
+import { server } from "../config";
 
 export default function New() {
     const [date, setDate] = useState(new Date());
@@ -31,7 +32,7 @@ export default function New() {
         e.target.shoes.value = "";
 
 
-        let res = await fetch("http://localhost:3000/api/runs", {
+        let res = await fetch(server + "/api/runs", {
             method: "POST",
             body: JSON.stringify({
                 name,

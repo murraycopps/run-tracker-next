@@ -6,6 +6,7 @@ import { server } from "../config";
 import { outTime } from "../scripts/scripts";
 
 interface Run {
+    _id: string;
     name: string;
     distance: number;
     date: Date;

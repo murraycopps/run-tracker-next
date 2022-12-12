@@ -1,11 +1,12 @@
 //posts.js
 
+import { ObjectId } from "mongodb";
 import clientPromise from "../../lib/mongodb";
 
 export default async function handler(req, res) {
   const client = await clientPromise;
   const db = client.db("running");
-  
+
   switch (req.method) {
     case "POST":
       let bodyObject = JSON.parse(req.body);
@@ -16,12 +17,14 @@ export default async function handler(req, res) {
       res.json({ status: 200, data: allPosts });
       break;
     case "DELETE":
-      let bodyObject2 = JSON.parse(req.body);
-      await db.collection("runs").deleteOne(bodyObject2);
+      let bodyObject2 = req.body;
+      await db.collection("runs").deleteOne({ "_id": new ObjectId(bodyObject2._id)});
       break;
     case "PUT":
-      let bodyObject3 = JSON.parse(req.body);
-      await db.collection("runs").updateOne(bodyObject3);
+      let bodyObject3 = req.body;
+      const { _id, ...rest } = bodyObject3;
+
+      await db.collection("runs").updateOne({ "_id": new ObjectId(_id) }, { $set: { ...rest } });
       break;
   }
 }

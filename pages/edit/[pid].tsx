@@ -6,9 +6,11 @@ import { server } from '../../config';
 import { outTime } from '../../scripts/scripts';
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
+import Link from 'next/link';
 
 
 interface Run {
+    _id: string;
     name: string;
     distance: number;
     date: Date;
@@ -31,13 +33,13 @@ export default function Post(props: { allRuns: Run[] }) {
         setRun(newRun);
         setDate(new Date(newRun.date));
         setTime(newRun.time);
-        console.log(newRun);
     }, [props.allRuns, pid]);
 
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
         const newRun = {
+            _id : run._id,
             name: e.target.name.value,
             distance: e.target.distance.value,
             date: date,
@@ -45,15 +47,15 @@ export default function Post(props: { allRuns: Run[] }) {
             notes: e.target.notes.value,
             shoes: e.target.shoes.value
         }
+        
         fetch(`${server}/api/runs`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(newRun)
-        }).then(() => {
-            router.push('/runs')
         })
+        router.push(`/runs/${pid}`)
     }
 
     return (
@@ -93,6 +95,7 @@ export default function Post(props: { allRuns: Run[] }) {
 
                 </ul>
             </form>
+            <Link className='format width-clamp mt-12 p-4 text-center' href={`/runs/${pid}`}> Cancel </Link>
 
         </PageWrapper>
     )
@@ -105,7 +108,6 @@ export async function getServerSideProps(context: any) {
             "Content-Type": "application/json",
         },
     });
-    console.log(res);
     let runs = await res.json();
     let allRuns = runs.data;
     return {

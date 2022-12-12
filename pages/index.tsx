@@ -7,6 +7,7 @@ import {server} from "../config";
 
 
 interface Run {
+  _id: string;
   name: string;
   distance: number;
   date: Date;
