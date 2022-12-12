@@ -115,15 +115,24 @@ export default function Home(props: { allRuns: Run[] }) {
 }
 
 export async function getServerSideProps(context: any) {
-  let res = await fetch(server + "/api/runs", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  let runs = await res.json();
-  let allRuns = runs.data;
-  return {
-    props: { allRuns },
-  };
+  try{
+    let res = await fetch(server + "/api/runs", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let runs = await res.json();
+    let allRuns = runs.data;
+    return {
+      props: { allRuns },
+    };
+  }
+  catch(err){
+    console.log(err);
+    return {
+      props: { allRuns: [] },
+    };
+  }
+  
 }
