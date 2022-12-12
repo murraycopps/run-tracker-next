@@ -155,7 +155,7 @@ export default function Runs(props: { allRuns: Run[] }) {
                                     <ul>
                                         <li className="list-title">{run.name}</li>
                                         <li>Distance: {run.distance / 1609.34} miles</li>
-                                        <li>Date: {new Date(run.date).toLocaleString()}</li>
+                                        {/* <li>Date: {new Date(run.date).toLocaleString()}</li> */}
                                         <li>Time: {outTime(run.time)}</li>
                                         {run.notes && constraintType === "notes" ? <li>Notes: {run.notes}</li> : null}
                                         {run.shoes && constraintType === "shoes" ? <li>Shoes: {run.shoes}</li> : null}

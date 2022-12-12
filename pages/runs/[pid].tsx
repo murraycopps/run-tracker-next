@@ -44,7 +44,7 @@ export default function Post(props: { allRuns: Run[] }) {
       <div className="flex flex-row justify-around content-center gap-4 px-4 small-screen-switch-flex-col w-full">
         <ul className="run-data p-8 w-full">
           <li className="list-title mx-auto">{run.name}:</li>
-          <li>Date: {new Date(run.date).toLocaleString()}</li>
+          {/* <li>Date: {new Date(run.date).toLocaleString()}</li> */}
           <li>Distance: {run.distance / 1609.34} miles</li>
           <li>Time: {outTime(run.time / 60)}</li>
           <li>Shoes: {run.shoes}</li>
