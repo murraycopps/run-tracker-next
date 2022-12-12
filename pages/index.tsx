@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { outTime, safeDate } from "../scripts/scripts";
+import { outTime } from "../scripts/scripts";
 import PageWrapper from "../components/PageWrapper";
 import {server} from "../config";
 
 
 interface Run {
-  _id: string;
   name: string;
   distance: number;
   date: Date;
@@ -93,7 +92,7 @@ export default function Home(props: { allRuns: Run[] }) {
                     <ul>
                       <li className="list-title">{run.name}</li>
                       <li>Distance: {run.distance / 1609.34} miles</li>
-                      <li>Date: {safeDate(new Date(run.date))}</li>
+                      <li>Date: {new Date(run.date).toLocaleString()}</li>
                       <li>Time: {outTime(run.time)}</li>
                     </ul>
                   </Link>
