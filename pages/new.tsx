@@ -5,8 +5,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import TimeInput from "../components/TimeInput";
 import { server } from "../config";
 
+const currentDate = new Date();
+
 export default function New() {
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(currentDate);
     const [time, setTime] = useState(0);
 
 
