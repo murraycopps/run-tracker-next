@@ -41,7 +41,7 @@ export default function Post(props: { allRuns: Run[] }) {
         const newRun = {
             _id : run._id,
             name: e.target.name.value,
-            distance: e.target.distance.value,
+            distance: e.target.distance.value * 1609.34,
             date: date,
             time: time,
             notes: e.target.notes.value,
@@ -73,7 +73,7 @@ export default function Post(props: { allRuns: Run[] }) {
                     </li>
                     <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
                         <label htmlFor="distance" className="new-label">Distance:</label>
-                        <input type="number" name="distance" id="distance" defaultValue={run.distance} className="new-input" />
+                        <input type="number" name="distance" id="distance" defaultValue={run.distance / 1609.34} className="new-input" />
                     </li>
                     <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
                         <label htmlFor="time" className="new-label">Time:</label>
