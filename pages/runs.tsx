@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Dropdown from "../components/Dropdown";
 import PageWrapper from "../components/PageWrapper";
+import { server } from "../config";
 import { outTime } from "../scripts/scripts";
 
 interface Run {
@@ -172,7 +173,7 @@ export default function Runs(props: { allRuns: Run[] }) {
 }
 
 export async function getServerSideProps(context: any) {
-    let res = await fetch("http://localhost:3000/api/runs", {
+    let res = await fetch(server + "/api/runs", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

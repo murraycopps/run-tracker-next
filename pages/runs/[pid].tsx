@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 import PageWrapper from '../../components/PageWrapper'
+import { server } from '../../config';
 import { outTime } from '../../scripts/scripts';
 
 interface Run {
@@ -42,7 +43,7 @@ export default function Post(props: { allRuns: Run[] }) {
 }
 
 export async function getServerSideProps(context: any) {
-  let res = await fetch("http://localhost:3000/api/runs", {
+  let res = await fetch(server +  "/api/runs", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
