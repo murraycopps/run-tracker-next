@@ -115,7 +115,7 @@ export default function Home(props: { allRuns: Run[] }) {
 }
 
 export async function getServerSideProps(context: any) {
-  let res = await fetch("https://run-tracker-next.vercel.app/api/runs", {
+  let res = await fetch(process.env.VERCEL_URL+ "/api/runs", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
