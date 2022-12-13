@@ -7,14 +7,6 @@ export default async function handler(req, res) {
   const client = await clientPromise;
   const db = client.db("running");
 
-  res.setHeader('Access-Control-Allow-Credentials', true)
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  )
-
   const bodyObject = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
   switch (req.method) {
