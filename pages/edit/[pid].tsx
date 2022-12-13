@@ -33,7 +33,6 @@ export default function Post(props: { allRuns: Run[], host: string }) {
     useEffect(() => {
         const newRun = props.allRuns.find((run: any) => run._id === pid) || {} as Run;
         setDistance(newRun.distance / 1609.34);
-        console.log(newRun.distance / 1609.34)
         setRun(newRun);
         setDate(new Date(newRun.date));
         setTime(newRun.time);
