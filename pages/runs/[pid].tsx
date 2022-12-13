@@ -43,18 +43,27 @@ export default function Post(props: { allRuns: Run[], host: string }) {
       <h1 className="title m-12">Run Data</h1>
       <div className="flex flex-row justify-around content-center gap-4 px-4 small-screen-switch-flex-col w-full">
         <ul className="run-data p-8 w-full">
-          <li className="list-title mx-auto">{run.name}:</li>
-          <li>Date: {new Date(run.date).toLocaleString()}</li>
-          <li>Distance: {run.distance / 1609.34} miles</li>
-          <li>Time: {outTime(run.time / 60)}</li>
-          <li>Shoes: {run.shoes}</li>
-          <li>Notes: {run.notes}</li>
+          {run.name ? <>
+            <li className="list-title mx-auto">{run.name}:</li>
+            <li>Date: {new Date(run.date).toLocaleString()}</li>
+            <li>Distance: {run.distance / 1609.34} miles</li>
+            <li>Time: {outTime(run.time / 60)}</li>
+            <li>Shoes: {run.shoes}</li>
+            <li>Notes: {run.notes}</li>
+          </>
+            : <li className="list-title mx-auto">No run data found</li>}
         </ul>
       </div>
-      <div className="flex flex-row justify-center content-center width-clamp gap-8 mt-8 [&>*]:w-1/2">
-        <Link href={`../edit/${pid}`}><button className="btn btn-primary w-full format py-4">Edit</button></Link>
-        <button className="btn btn-primary format py-4" onClick={deleteRun}>Delete</button>
-      </div>
+      {run.name ?
+        <div className="flex flex-row justify-center content-center width-clamp gap-8 mt-8 [&>*]:w-1/2">
+          <Link href={`../edit/${pid}`}><button className="btn btn-primary w-full format py-4">Edit</button></Link>
+          <button className="btn btn-primary format py-4" onClick={deleteRun}>Delete</button>
+        </div>
+        : 
+        <div className="flex flex-row justify-center content-center width-clamp gap-8 mt-8 [&>*]:w-full">
+          <Link href="/runs"><button className="btn btn-primary w-full format py-4">Back</button></Link>
+        </div>
+        }
 
     </PageWrapper>
   )

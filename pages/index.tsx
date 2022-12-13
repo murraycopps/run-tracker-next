@@ -79,10 +79,13 @@ export default function Home(props: { allRuns: Run[], host: string }) {
         </ul>
         <ul className="run-data p-8 my-4">
           <li className="list-title">Weekly:</li>
-          <li>Weekly Runs: {weekRuns.length}</li>
-          <li>Weekly Milage: {weekRuns.reduce((acc: any, run: any) => acc += run.distance, 0) / 1609.34} miles</li>
-          <li>Weekly Time: {outTime(weekRuns.reduce((acc: any, run: any) => acc += run.time, 0) / 60)}</li>
-          <li>Weekly Pace: {outTime(weekRuns.reduce((acc: any, run: any) => acc += run.time, 0) / weekRuns.reduce((acc: any, run: any) => acc += run.distance, 0) * 1609.34)} min/mi</li>
+          {weekRuns.length === 0 ? <li>No Runs This Week</li> : <>
+            <li>Weekly Runs: {weekRuns.length}</li>
+            <li>Weekly Milage: {weekRuns.reduce((acc: any, run: any) => acc += run.distance, 0) / 1609.34} miles</li>
+            <li>Weekly Time: {outTime(weekRuns.reduce((acc: any, run: any) => acc += run.time, 0) / 60)}</li>
+            <li>Weekly Pace: {outTime(weekRuns.reduce((acc: any, run: any) => acc += run.time, 0) / weekRuns.reduce((acc: any, run: any) => acc += run.distance, 0) * 1609.34)} min/mi</li>
+            <li>Longest Run: {Math.max(...weekRuns.map(a => a.distance)) / 1609.34} miles</li>
+          </>}
         </ul>
       </div>
       <div className="flex flex-col justify-center items-center w-full">

@@ -66,35 +66,42 @@ export default function Post(props: { allRuns: Run[], host: string }) {
             <h1 className="title m-12">Run Data</h1>
             <form onSubmit={handleSubmit} className="flex flex-col justify-between items-center w-full">
                 <ul className="run-data new-run-data">
-                    <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
-                        <label htmlFor="name" className="new-label">Name:</label>
-                        <input type="text" name="name" id="name" defaultValue={run.name} className="new-input" />
-                    </li>
-                    <li className="flex flex-row justify-between gapx-16 items-top w-full medium-screen-switch-flex-col">
-                        <label htmlFor="notes" className="new-label new-notes-label">Notes:</label>
-                        <textarea name="notes" id="notes" className="new-input new-notes" defaultValue={run.notes} />
-                    </li>
-                    <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
-                        <label htmlFor="distance" className="new-label">Distance:</label>
-                        <input type="number" name="distance" id="distance" value={distance} className="new-input" onChange={(e) => setDistance(parseFloat(e.target.value))} />
-                    </li>
-                    <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
-                        <label htmlFor="time" className="new-label">Time:</label>
-                        <TimeInput className="new-input" value={time} onChange={setTime} />
-                    </li>
-                    <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
-                        <label htmlFor="date" className="new-label">Date:</label>
-                        <div className="new-input no-padding">
-                            <DatePicker className="w-full h-12" selected={date} onChange={(date: Date) => setDate(date)} />
+                    {run._id ? <>
+                        <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
+                            <label htmlFor="name" className="new-label">Name:</label>
+                            <input type="text" name="name" id="name" defaultValue={run.name} className="new-input" />
+                        </li>
+                        <li className="flex flex-row justify-between gapx-16 items-top w-full medium-screen-switch-flex-col">
+                            <label htmlFor="notes" className="new-label new-notes-label">Notes:</label>
+                            <textarea name="notes" id="notes" className="new-input new-notes" defaultValue={run.notes} />
+                        </li>
+                        <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
+                            <label htmlFor="distance" className="new-label">Distance:</label>
+                            <input type="number" name="distance" id="distance" value={distance} className="new-input" onChange={(e) => setDistance(parseFloat(e.target.value))} />
+                        </li>
+                        <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
+                            <label htmlFor="time" className="new-label">Time:</label>
+                            <TimeInput className="new-input" value={time} onChange={setTime} />
+                        </li>
+                        <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
+                            <label htmlFor="date" className="new-label">Date:</label>
+                            <div className="new-input no-padding">
+                                <DatePicker className="w-full h-12" selected={date} onChange={(date: Date) => setDate(date)} />
+                            </div>
+                        </li>
+                        <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
+                            <label htmlFor="shoes" className="new-label">Shoes:</label>
+                            <input type="text" name="shoes" id="shoes" defaultValue={run.shoes} className="new-input" />
+                        </li>
+                        <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
+                            <button type="submit" className="new-input" style={{ width: "100%" }}>Submit</button>
+                        </li>
+                    </> :
+                        <div className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
+                            <p className="new-label">Run not found</p>
+                            <Link href="/runs">Go to runs</Link>
                         </div>
-                    </li>
-                    <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
-                        <label htmlFor="shoes" className="new-label">Shoes:</label>
-                        <input type="text" name="shoes" id="shoes" defaultValue={run.shoes} className="new-input" />
-                    </li>
-                    <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
-                        <button type="submit" className="new-input" style={{ width: "100%" }}>Submit</button>
-                    </li>
+                    }
 
                 </ul>
             </form>
