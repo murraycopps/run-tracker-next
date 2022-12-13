@@ -35,7 +35,7 @@ export default function NavBar() {
             </div>
             {isOpen || !isBreakpoint ? <div className={styles.navbar}>
                 <span className={styles.navbarBorder} />
-                <Link className={`${styles.navbarElement}  ${path == '/home' ? styles.current : ''}`} href="/">
+                <Link className={`${styles.navbarElement}  ${path == '/' ? styles.current : ''}`} href="/">
                     {!isBreakpoint ? <FontAwesomeIcon icon={faHome} /> : null}
                     <div>Home</div>
                 </Link>
