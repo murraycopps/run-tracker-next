@@ -16,7 +16,7 @@ interface Run {
   shoes: string;
 }
 
-export default function Post(props: { allRuns: Run[] }) {
+export default function Post(props: { allRuns: Run[], host: string }) {
   const router = useRouter()
   const { pid } = router.query
 
@@ -25,6 +25,7 @@ export default function Post(props: { allRuns: Run[] }) {
   useEffect(() => {
     const newRun = props.allRuns.find((run: any) => run._id === pid) || {} as Run;
     setRun(newRun);
+    console.log(props.host)
   }, [props.allRuns, pid]);
 
   const deleteRun = async () => {
@@ -61,7 +62,8 @@ export default function Post(props: { allRuns: Run[] }) {
 }
 
 export async function getServerSideProps(context: any) {
-  let res = await fetch(server + "/api/runs", {
+  let host = context.req.headers.host;
+  let res = await fetch(`http://${host}/api/runs`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -70,7 +72,7 @@ export async function getServerSideProps(context: any) {
   let runs = await res.json();
   let allRuns = runs.data;
   return {
-    props: { allRuns },
+    props: { allRuns, host },
   };
 }
 

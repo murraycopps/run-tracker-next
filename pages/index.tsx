@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { outTime } from "../scripts/scripts";
 import PageWrapper from "../components/PageWrapper";
-import {server} from "../config";
+import { server } from "../config";
 
 
 interface Run {
@@ -16,7 +16,7 @@ interface Run {
 }
 
 
-export default function Home(props: { allRuns: Run[] }) {
+export default function Home(props: { allRuns: Run[], host: string }) {
   const [runs, setRuns] = useState([] as Run[]);
   const [name, setName] = useState("");
   const [filteredRuns, setFilteredRuns] = useState(props.allRuns.filter((run: any, i: Number) => run.name.toLowerCase().includes(name.toLowerCase()) && i < 10));
@@ -128,7 +128,8 @@ export async function getServerSideProps(context: any) {
   });
   let runs = await res.json();
   let allRuns = runs.data;
+  let host = context.req.headers.host;
   return {
-    props: { allRuns },
+    props: { allRuns, host },
   };
 }
