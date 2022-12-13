@@ -28,14 +28,14 @@ export default function Post(props: { allRuns: Run[], host: string }) {
   }, [props.allRuns, pid]);
 
   const deleteRun = async () => {
-    router.push('/runs')
-    fetch(`${server}${props.host}/api/runs`, {
+    fetch(`http://${props.host}/api/runs`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(run)
     })
+    router.push('/runs')
   }
 
   return (
