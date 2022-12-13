@@ -25,11 +25,14 @@ export default function Post(props: { allRuns: Run[] }) {
 
     const [run, setRun] = useState({} as Run);
 
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(undefined as unknown as Date);
     const [time, setTime] = useState(0);
+    const [distance, setDistance] = useState(0);
+
 
     useEffect(() => {
         const newRun = props.allRuns.find((run: any) => run._id === pid) || {} as Run;
+        setDistance(newRun.distance / 1609.34);
         setRun(newRun);
         setDate(new Date(newRun.date));
         setTime(newRun.time);
@@ -73,7 +76,7 @@ export default function Post(props: { allRuns: Run[] }) {
                     </li>
                     <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
                         <label htmlFor="distance" className="new-label">Distance:</label>
-                        <input type="number" name="distance" id="distance" defaultValue={run.distance / 1609.34} className="new-input" />
+                        <input type="number" name="distance" id="distance" defaultValue={distance} className="new-input" />
                     </li>
                     <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
                         <label htmlFor="time" className="new-label">Time:</label>
@@ -82,7 +85,7 @@ export default function Post(props: { allRuns: Run[] }) {
                     <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
                         <label htmlFor="date" className="new-label">Date:</label>
                         <div className="new-input no-padding">
-                            {/* <DatePicker className="w-full h-12" selected={date} onChange={(date: Date) => setDate(date)} /> */}
+                            <DatePicker className="w-full h-12" selected={date} onChange={(date: Date) => setDate(date)} />
                         </div>
                     </li>
                     <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
