@@ -33,6 +33,7 @@ export default function Post(props: { allRuns: Run[], host: string }) {
     useEffect(() => {
         const newRun = props.allRuns.find((run: any) => run._id === pid) || {} as Run;
         setDistance(newRun.distance / 1609.34);
+        console.log(newRun.distance / 1609.34)
         setRun(newRun);
         setDate(new Date(newRun.date));
         setTime(newRun.time);
@@ -76,7 +77,7 @@ export default function Post(props: { allRuns: Run[], host: string }) {
                     </li>
                     <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
                         <label htmlFor="distance" className="new-label">Distance:</label>
-                        <input type="number" name="distance" id="distance" defaultValue={distance} className="new-input" />
+                        <input type="number" name="distance" id="distance" value={distance} className="new-input" onChange={(e) => setDistance(parseFloat(e.target.value))} />
                     </li>
                     <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
                         <label htmlFor="time" className="new-label">Time:</label>
