@@ -70,12 +70,14 @@ export default function Home(props: { allRuns: Run[], host: string }) {
       <h1 className="title m-12">Run Data</h1>
       <div className="flex flex-row justify-around content-center  gap-4 px-4 small-screen-switch-flex-col w-full">
         <ul className="run-data p-8 my-4">
-          <li className="list-title mx-auto">Total:</li>
-          <li>Runs: {runs.length}</li>
-          <li>Total Milage: {runs.reduce((acc: any, run: any) => acc += run.distance, 0) / 1609.34} miles</li>
-          <li>Total Time: {outTime(runs.reduce((acc: any, run: any) => acc += run.time, 0))}</li>
-          <li>Pace: {outTime(runs.reduce((acc: any, run: any) => acc += run.time, 0) / runs.reduce((acc: any, run: any) => acc += run.distance, 0) * 1609.34)} min/mi</li>
-          <li>Longest Run: {Math.max(...runs.map(a => a.distance)) / 1609.34} miles</li>
+            <li className="list-title mx-auto">Total:</li>
+          {runs.length === 0 ? <li>No Runs</li> : <>
+            <li>Runs: {runs.length}</li>
+            <li>Total Milage: {runs.reduce((acc: any, run: any) => acc += run.distance, 0) / 1609.34} miles</li>
+            <li>Total Time: {outTime(runs.reduce((acc: any, run: any) => acc += run.time, 0))}</li>
+            <li>Pace: {outTime(runs.reduce((acc: any, run: any) => acc += run.time, 0) / runs.reduce((acc: any, run: any) => acc += run.distance, 0) * 1609.34)} min/mi</li>
+            <li>Longest Run: {Math.max(...runs.map(a => a.distance)) / 1609.34} miles</li>
+          </>}
         </ul>
         <ul className="run-data p-8 my-4">
           <li className="list-title">Weekly:</li>
