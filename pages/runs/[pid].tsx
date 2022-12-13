@@ -28,7 +28,7 @@ export default function Post(props: { allRuns: Run[], host: string }) {
   }, [props.allRuns, pid]);
 
   const deleteRun = async () => {
-    fetch(`https://${props.host}/api/runs`, {
+    fetch(`https://run-tracker-next-murraycopps.vercel.app/runs/api/runs`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
