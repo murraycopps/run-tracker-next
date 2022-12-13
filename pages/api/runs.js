@@ -7,7 +7,13 @@ export default async function handler(req, res) {
   const client = await clientPromise;
   const db = client.db("running");
 
-const bodyObject = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+  header = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+
+  const bodyObject = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
   switch (req.method) {
     case "POST":
@@ -18,7 +24,7 @@ const bodyObject = typeof req.body === "string" ? JSON.parse(req.body) : req.bod
       res.json({ status: 200, data: allPosts });
       break;
     case "DELETE":
-      await db.collection("runs").deleteOne({ "_id": new ObjectId(bodyObject._id)});
+      await db.collection("runs").deleteOne({ "_id": new ObjectId(bodyObject._id) });
       break;
     case "PUT":
       const { _id, ...rest } = bodyObject;
