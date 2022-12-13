@@ -6,7 +6,7 @@ import TimeInput from "../components/TimeInput";
 import { server } from "../config";
 
 export default function New() {
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(undefined as unknown as Date);
     const [time, setTime] = useState(0);
 
 
@@ -70,7 +70,7 @@ export default function New() {
                         <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
                             <label htmlFor="date" className="new-label">Date:</label>
                             <div className="new-input no-padding">
-                                {/* <DatePicker className="w-full h-12" selected={date} onChange={(date : Date) => setDate(date)} /> */}
+                                <DatePicker className="w-full h-12" selected={date} onChange={(date : Date) => setDate(date)} />
                             </div>
                         </li>
                         <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">

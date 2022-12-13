@@ -92,7 +92,7 @@ export default function Home(props: { allRuns: Run[] }) {
                     <ul>
                       <li className="list-title">{run.name}</li>
                       <li>Distance: {run.distance / 1609.34} miles</li>
-                      {/* <li>Date: {new Date(run.date).toLocaleString()}</li> */}
+                      <li>Date: {new Date(run.date).toLocaleString()}</li>
                       <li>Time: {outTime(run.time)}</li>
                     </ul>
                   </Link>
