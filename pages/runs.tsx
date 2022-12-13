@@ -98,6 +98,10 @@ export default function Runs(props: { allRuns: Run[] }) {
             else return 0;
         })
 
+        sortedRuns.forEach((run: any, i: Number) => {
+            run.date = new Date(run.date).toLocaleDateString();
+        })
+
         setRuns(sortedRuns);
     }, [props.allRuns, sortType, runs]);
 
@@ -155,7 +159,7 @@ export default function Runs(props: { allRuns: Run[] }) {
                                     <ul>
                                         <li className="list-title">{run.name}</li>
                                         <li>Distance: {run.distance / 1609.34} miles</li>
-                                        <li>Date: {new Date(run.date).toLocaleString()}</li>
+                                        <li>Date: {run.date}</li>
                                         <li>Time: {outTime(run.time)}</li>
                                         {run.notes && constraintType === "notes" ? <li>Notes: {run.notes}</li> : null}
                                         {run.shoes && constraintType === "shoes" ? <li>Shoes: {run.shoes}</li> : null}
