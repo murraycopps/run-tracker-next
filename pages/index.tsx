@@ -17,7 +17,7 @@ interface Run {
 
 
 export default function Home(props: { allRuns: Run[] }) {
-  const [runs, setRuns] = useState(props.allRuns);
+  const [runs, setRuns] = useState([] as Run[]);
   const [name, setName] = useState("");
   const [filteredRuns, setFilteredRuns] = useState(props.allRuns.filter((run: any, i: Number) => run.name.toLowerCase().includes(name.toLowerCase()) && i < 10));
   const [weekRuns, setWeekRuns] = useState([] as Run[]);
@@ -41,14 +41,14 @@ export default function Home(props: { allRuns: Run[] }) {
 
   useEffect(() => {
     setRuns(props.allRuns);
-    // const week = props.allRuns.filter((run: any) => {
-    //   const date = new Date(run.date);
-    //   const today = new Date();
-    //   const diff = today.getTime() - date.getTime();
-    //   const days = diff / (1000 * 3600 * 24);
-    //   return days < 7;
-    // })
-    // setWeekRuns(week);
+    const week = props.allRuns.filter((run: any) => {
+      const date = new Date(run.date);
+      const today = new Date();
+      const diff = today.getTime() - date.getTime();
+      const days = diff / (1000 * 3600 * 24);
+      return days < 7;
+    })
+    setWeekRuns(week);
   }, [props.allRuns]);
 
 
