@@ -28,7 +28,7 @@ export default function Post(props: { allRuns: Run[], host: string }) {
   }, [props.allRuns, pid]);
 
   const deleteRun = async () => {
-    fetch(`http://${props.host}/api/runs`, {
+    fetch(`https://${props.host}/api/runs`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
