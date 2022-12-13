@@ -51,7 +51,7 @@ export default function Post(props: { allRuns: Run[] }) {
           <li>Notes: {run.notes}</li>
         </ul>
       </div>
-      <div className="flex flex-row justify-center content-center width-clamp gap-8 small-screen-switch-flex-col mt-8 [&>*]:w-1/2">
+      <div className="flex flex-row justify-center content-center width-clamp gap-8 mt-8 [&>*]:w-1/2">
         <Link href={`../edit/${pid}`}><button className="btn btn-primary w-full format py-4">Edit</button></Link>
         <button className="btn btn-primary format py-4" onClick={deleteRun}>Delete</button>
       </div>
