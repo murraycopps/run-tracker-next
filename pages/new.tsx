@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import TimeInput from "../components/TimeInput";
 import { server } from "../config";
 
-export default function New() {
+export default function New(props: { host: string }) {
     const [date, setDate] = useState(undefined as unknown as Date);
     const [time, setTime] = useState(0);
 
@@ -32,7 +32,7 @@ export default function New() {
         e.target.shoes.value = "";
 
 
-        let res = await fetch(server + "/api/runs", {
+        let res = await fetch(`${server}${props.host}/api/runs`, {
             method: "POST",
             body: JSON.stringify({
                 name,
@@ -86,4 +86,12 @@ export default function New() {
             </div>
         </PageWrapper>
     )
+}
+
+export async function getServerSideProps(context: any) {
+    return {
+        props: {
+            host: context.req.headers.host,
+        }
+    }
 }

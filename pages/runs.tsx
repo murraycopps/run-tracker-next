@@ -15,7 +15,7 @@ interface Run {
 }
 
 
-export default function Runs(props: { allRuns: Run[] }) {
+export default function Runs(props: { allRuns: Run[], host: string }) {
     const [runs, setRuns] = useState(props.allRuns);
     const [constraint, setConstraint] = useState("" as string | number);
     const [constraintType, setConstraintType] = useState("name");
@@ -177,7 +177,8 @@ export default function Runs(props: { allRuns: Run[] }) {
 }
 
 export async function getServerSideProps(context: any) {
-    let res = await fetch(server + "/api/runs", {
+    let host = context.req.headers.host;
+    let res = await fetch(`http://${host}/api/runs`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -186,7 +187,7 @@ export async function getServerSideProps(context: any) {
     let runs = await res.json();
     let allRuns = runs.data;
     return {
-        props: { allRuns },
+        props: { allRuns, host },
     };
 }
 

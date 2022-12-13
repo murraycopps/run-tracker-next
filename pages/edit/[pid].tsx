@@ -19,7 +19,7 @@ interface Run {
     shoes: string;
 }
 
-export default function Post(props: { allRuns: Run[] }) {
+export default function Post(props: { allRuns: Run[], host: string }) {
     const router = useRouter()
     const { pid } = router.query
 
@@ -42,7 +42,7 @@ export default function Post(props: { allRuns: Run[] }) {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         const newRun = {
-            _id : run._id,
+            _id: run._id,
             name: e.target.name.value,
             distance: e.target.distance.value * 1609.34,
             date: date,
@@ -50,8 +50,8 @@ export default function Post(props: { allRuns: Run[] }) {
             notes: e.target.notes.value,
             shoes: e.target.shoes.value
         }
-        
-        fetch(`${server}/api/runs`, {
+
+        fetch(`${server}${props.host}/api/runs`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -72,7 +72,7 @@ export default function Post(props: { allRuns: Run[] }) {
                     </li>
                     <li className="flex flex-row justify-between gapx-16 items-top w-full medium-screen-switch-flex-col">
                         <label htmlFor="notes" className="new-label new-notes-label">Notes:</label>
-                        <textarea name="notes" id="notes" className="new-input new-notes" defaultValue={run.notes}/>
+                        <textarea name="notes" id="notes" className="new-input new-notes" defaultValue={run.notes} />
                     </li>
                     <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
                         <label htmlFor="distance" className="new-label">Distance:</label>
@@ -105,7 +105,8 @@ export default function Post(props: { allRuns: Run[] }) {
 }
 
 export async function getServerSideProps(context: any) {
-    let res = await fetch(server + "/api/runs", {
+    let host = context.req.headers.host;
+    let res = await fetch(`${server}${host}/api/runs`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -114,7 +115,7 @@ export async function getServerSideProps(context: any) {
     let runs = await res.json();
     let allRuns = runs.data;
     return {
-        props: { allRuns },
+        props: { allRuns, host },
     };
 }
 

@@ -25,11 +25,10 @@ export default function Post(props: { allRuns: Run[], host: string }) {
   useEffect(() => {
     const newRun = props.allRuns.find((run: any) => run._id === pid) || {} as Run;
     setRun(newRun);
-    console.log(props.host)
   }, [props.allRuns, pid]);
 
   const deleteRun = async () => {
-    fetch(`${server}/api/runs`, {
+    fetch(`${server}${props.host}/api/runs`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -63,7 +62,7 @@ export default function Post(props: { allRuns: Run[], host: string }) {
 
 export async function getServerSideProps(context: any) {
   let host = context.req.headers.host;
-  let res = await fetch(`http://${host}/api/runs`, {
+  let res = await fetch(`${server}${host}/api/runs`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
