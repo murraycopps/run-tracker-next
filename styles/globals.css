@@ -42,8 +42,8 @@ a {
   line-height: 1.15;
   text-align: left;
   list-style-type: none;
-  background: rgb(30, 30, 30);
-  box-shadow: 10px 10px 0 0 rgb(20, 20, 20);
+  background: rgb(40, 40, 40);
+  box-shadow: 10px 10px 0 0 rgb(25, 25, 25);
   width: clamp(20rem, 50%, 40rem);
   margin-inline: auto;
 }
@@ -180,8 +180,8 @@ a {
   font-weight: 700;
   line-height: 1.15;
   list-style-type: none;
-  background: rgb(30, 30, 30);
-  box-shadow: 10px 10px 0 0 rgb(20, 20, 20);
+  background: rgb(40, 40, 40);
+  box-shadow: 10px 10px 0 0 rgb(25, 25, 25);
   margin-inline: auto;
 }
 
