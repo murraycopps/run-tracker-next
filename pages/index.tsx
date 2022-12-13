@@ -27,6 +27,11 @@ export default function Home(props: { allRuns: Run[] }) {
     const sortedRuns = props.allRuns.sort((a: any, b: any) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime();
     })
+
+    sortedRuns.forEach((run: any) => {
+      run.date = new Date(run.date).toLocaleString();
+    })
+
     setRuns(sortedRuns);
   }, [props.allRuns]);
 
@@ -92,7 +97,7 @@ export default function Home(props: { allRuns: Run[] }) {
                     <ul>
                       <li className="list-title">{run.name}</li>
                       <li>Distance: {run.distance / 1609.34} miles</li>
-                      <li>Date: {new Date(run.date).toLocaleString()}</li>
+                      <li>Date: {run.date}</li>
                       <li>Time: {outTime(run.time)}</li>
                     </ul>
                   </Link>
