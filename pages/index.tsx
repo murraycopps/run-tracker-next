@@ -124,7 +124,7 @@ export default function Home(props: { allRuns: Run[], host: string }) {
 
 export async function getServerSideProps(context: any) {
   let host = context.req.headers.host;
-  let res = await fetch(`http://${host}/api/runs`, {
+  let res = await fetch(`${server}${host}/api/runs`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
