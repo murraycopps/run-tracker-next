@@ -56,6 +56,12 @@ export default function LoginElement({ onLogin = () => { }, users }: { onLogin: 
                 <button type="submit" className='mt-4 py-4'>{newUser ? 'Add New User' : 'Login'}</button>
             </form>
             <button className={'width-clamp format mt-8 py-4'} onClick={() => setNewUser(!newUser)}>{newUser ? 'Login' : 'New User'}</button>
+
+            <div className="flex flex-col justify-center items-center w-full format width-clamp">
+                <h1 className="title m-8">Default User</h1>
+                <p>Username: default</p>
+                <p>Password: password</p>
+            </div>
         </>
     )
 }

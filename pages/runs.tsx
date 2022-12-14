@@ -9,6 +9,7 @@ import LoginData from "../scripts/loginData";
 import { outTime } from "../scripts/scripts";
 
 interface Run {
+    id: string,
     name: string;
     distance: number;
     date: Date;
@@ -169,24 +170,31 @@ export default function Runs(props: { users: user[], host: string }) {
                     </div> : null}
                 </div>
                 <ul className="recent-runs w-full" ref={recentRunsRef}>
-                    {filteredRuns.map((run: any, i: Number) => {
-                        if (i < startingIndex || i > startingIndex + 10) return null;
-                        return (
-                            <li className="run-data my-4 p-4" key={i.toString()}>
-                                <Link className="" href={`/runs/${run._id}`}>
-                                    <ul>
-                                        <li className="list-title">{run.name}</li>
-                                        <li>Distance: {run.distance / 1609.34} miles</li>
-                                        <li>Date: {run.date}</li>
-                                        <li>Time: {outTime(run.time)}</li>
-                                        {run.notes && constraintType === "notes" ? <li>Notes: {run.notes}</li> : null}
-                                        {run.shoes && constraintType === "shoes" ? <li>Shoes: {run.shoes}</li> : null}
-                                    </ul>
+                    {filteredRuns.length ?
+                        filteredRuns.map((run: any, i: Number) => {
+                            if (i < startingIndex || i > startingIndex + 10) return null;
+                            return (
+                                <li className="run-data my-4 p-4" key={i.toString()}>
+                                    <Link className="" href={`/runs/${run.id}`}>
+                                        <ul>
+                                            <li className="list-title">{run.name}</li>
+                                            <li>Distance: {run.distance / 1609.34} miles</li>
+                                            <li>Date: {run.date}</li>
+                                            <li>Time: {outTime(run.time)}</li>
+                                            {run.notes && constraintType === "notes" ? <li>Notes: {run.notes}</li> : null}
+                                            {run.shoes && constraintType === "shoes" ? <li>Shoes: {run.shoes}</li> : null}
+                                        </ul>
 
-                                </Link>
-                            </li>
-                        )
-                    })}
+                                    </Link>
+                                </li>
+                            )
+                        })
+                        : <li className="run-data my-4 p-4">
+                            <ul>
+                                <li className="list-title">No runs found</li>
+                            </ul>
+                        </li>
+                    }
                 </ul>
             </div> :
                 <LoginElement onLogin={refreshData} users={props.users} />

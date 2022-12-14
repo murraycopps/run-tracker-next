@@ -26,6 +26,11 @@ export default class LoginData {
     }
     
     static addUserRun(run: any) {
+        //set run id to random number that is not already in the array
+        run.id = Math.floor(Math.random() * 1000000).toString();
+        while (this.user.runs.find((r: any) => r.id === run.id)) {
+            run.id = Math.floor(Math.random() * 1000000).toString();
+        }
         this.user.runs.push(run);
     }
 
@@ -33,5 +38,5 @@ export default class LoginData {
         const index = this.user.runs.findIndex((r: any) => r.id === run.id);
         this.user.runs[index] = run;
     }
-    
+
 }

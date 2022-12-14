@@ -9,7 +9,7 @@ import LoginData from '../../scripts/loginData';
 import { outTime } from '../../scripts/scripts';
 
 interface Run {
-  _id: string;
+  id: string;
   name: string;
   distance: number;
   date: Date;
@@ -32,13 +32,14 @@ export default function Post(props: { users: user[], host: string }) {
   const [run, setRun] = useState({} as Run);
 
   useEffect(() => {
-    const newRun = LoginData.user.runs.find((run: any) => run._id === pid) || {} as Run;
+    console.log(LoginData.user.runs, pid);
+    const newRun = LoginData.user.runs.find((run: any) => run.id === pid) || {} as Run;
     setRun(newRun);
   }, [LoginData.user.runs, pid]);
 
   const deleteRun = async () => {
-    LoginData.user.runs = LoginData.user.runs.filter((run: any) => run._id !== pid);
-    await fetch(`${server}/api/users`, {
+    LoginData.user.runs = LoginData.user.runs.filter((run: any) => run.id !== pid);
+    await fetch(`${server}${props.host}/api/users`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

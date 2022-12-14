@@ -12,7 +12,7 @@ import LoginElement from '../../components/LoginElement';
 
 
 interface Run {
-    _id: string;
+    id: string;
     name: string;
     distance: number;
     date: Date;
@@ -40,7 +40,7 @@ export default function Post(props: { users: user[], host: string }) {
 
 
     useEffect(() => {
-        const newRun = LoginData.user.runs.find((run: any) => run._id === pid) || {} as Run;
+        const newRun = LoginData.user.runs.find((run: any) => run.id === pid) || {} as Run;
         setDistance(newRun.distance / 1609.34);
         setRun(newRun);
         setDate(new Date(newRun.date));
@@ -51,7 +51,7 @@ export default function Post(props: { users: user[], host: string }) {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         const newRun = {
-            _id: run._id,
+            id: run.id,
             name: e.target.name.value,
             distance: e.target.distance.value * 1609.34,
             date: date,
@@ -83,7 +83,7 @@ export default function Post(props: { users: user[], host: string }) {
                     <h1 className="title m-12">Run Data</h1>
                     <form onSubmit={handleSubmit} className="flex flex-col justify-between items-center w-full">
                         <ul className="run-data new-run-data">
-                            {run._id ? <>
+                            {run.id ? <>
                                 <li className="flex flex-row justify-between gapx-16 items-center w-full medium-screen-switch-flex-col">
                                     <label htmlFor="name" className="new-label">Name:</label>
                                     <input type="text" name="name" id="name" defaultValue={run.name} className="new-input" />

@@ -9,6 +9,7 @@ import LoginElement from "../components/LoginElement";
 
 
 interface Run {
+  id: number,
   name: string;
   distance: number;
   date: Date;
@@ -103,7 +104,7 @@ export default function Home(props: { users: user[], host: string }) {
               {filteredRuns.map((run: any, i: Number) => {
                 return (
                   <li className="run-data my-4 p-4" key={i.toString()}>
-                    <Link className="" href={`/runs/${run._id}`}>
+                    <Link className="" href={`/runs/${run.id}`}>
                       <ul>
                         <li className="list-title">{run.name}</li>
                         <li>Distance: {run.distance / 1609.34} miles</li>
