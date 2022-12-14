@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Dropdown from "../components/Dropdown";
+import LoginElement from "../components/LoginElement";
 import PageWrapper from "../components/PageWrapper";
 import { server } from "../config";
+import LoginData from "../scripts/loginData";
 import { outTime } from "../scripts/scripts";
 
 interface Run {
@@ -14,12 +17,19 @@ interface Run {
     shoes: string;
 }
 
+interface user {
+    _id: string;
+    username: string;
+    password: string;
+    runs: string[];
+}
 
-export default function Runs(props: { allRuns: Run[], host: string }) {
-    const [runs, setRuns] = useState(props.allRuns);
+
+export default function Runs(props: { users: user[], host: string }) {
+    const [runs, setRuns] = useState([] as Run[]);
     const [constraint, setConstraint] = useState("" as string | number);
     const [constraintType, setConstraintType] = useState("name");
-    const [filteredRuns, setFilteredRuns] = useState(props.allRuns.filter((run: any, i: Number) => run[constraintType].toLowerCase().includes(constraint.toString().toLowerCase())));
+    const [filteredRuns, setFilteredRuns] = useState([] as Run[]);
     const [startingIndex, setStartingIndex] = useState(0);
     const [pageArray, setPageArray] = useState([] as number[]);
     const [sortType, setSortType] = useState("date");
@@ -91,7 +101,7 @@ export default function Runs(props: { allRuns: Run[], host: string }) {
     }
 
     useEffect(() => {
-        const sortedRuns = runs.sort((a: any, b: any) => {
+        const sortedRuns = LoginData.user.runs.sort((a: any, b: any) => {
             if (sortType === "date") return new Date(b.date).getTime() - new Date(a.date).getTime();
             else if (sortType === "distance") return b.distance - a.distance;
             else if (sortType === "time") return b.time - a.time;
@@ -103,7 +113,7 @@ export default function Runs(props: { allRuns: Run[], host: string }) {
         })
 
         setRuns(sortedRuns);
-    }, [props.allRuns, sortType, runs]);
+    }, [LoginData.user.runs, sortType, runs]);
 
     useEffect(() => {
         const newFilteredRuns = runs.filter((run: any, i: Number) => run[constraintType].toLowerCase().includes(constraint.toString().toLowerCase()))
@@ -125,9 +135,17 @@ export default function Runs(props: { allRuns: Run[], host: string }) {
         return () => window.removeEventListener("scroll", onScroll);
     }, [isBreakpoint, onScroll]);
 
+
+    const router = useRouter();
+
+    const refreshData = () => {
+        router.replace(router.asPath);
+    }
+
+
     return (
         <PageWrapper>
-            {runs ? <div className="flex flex-col justify-center items-center w-full">
+            {LoginData.isLoggedIn ? <div className="flex flex-col justify-center items-center w-full">
                 <h1 className="title m-12">Runs</h1>
                 <div className="search-bar" ref={searchBarRef}>
                     {!isBreakpoint ?
@@ -170,7 +188,8 @@ export default function Runs(props: { allRuns: Run[], host: string }) {
                         )
                     })}
                 </ul>
-            </div> : <h1>Loading...</h1>
+            </div> :
+                <LoginElement onLogin={refreshData} users={props.users} />
             }
         </PageWrapper >
     )
@@ -178,16 +197,16 @@ export default function Runs(props: { allRuns: Run[], host: string }) {
 
 export async function getServerSideProps(context: any) {
     let host = context.req.headers.host;
-    let res = await fetch(`${server}${host}/api/runs`, {
+    let res = await fetch(`${server}${host}/api/users`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
     });
-    let runs = await res.json();
-    let allRuns = runs.data;
+    let allUsers = await res.json();
+    let users = allUsers.data;
     return {
-        props: { allRuns, host },
+        props: { users, host },
     };
 }
 

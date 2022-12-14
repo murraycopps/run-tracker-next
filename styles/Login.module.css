@@ -1,0 +1,15 @@
+.input{
+    width: 90%;
+    height: 3rem;
+    font-size: 2rem;
+    padding-inline: 1rem;
+    margin: 0;
+    margin-top: 1rem;
+    background: #3b3b3b;
+    border: none;
+    color: #fff;
+    border-radius: 0.5rem;
+    outline: none;
+    box-shadow: 0 0 0 0.1rem #fff;
+    transition: box-shadow 0.2s ease-in-out;
+}

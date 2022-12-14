@@ -11,20 +11,20 @@ export default async function handler(req, res) {
 
   switch (req.method) {
     case "POST":
-      await db.collection("runs").insertOne(bodyObject);
+      await db.collection("users").insertOne(bodyObject);
       res.json({ status: 200, data: "posted" });
       break;
     case "GET":
-      const allPosts = await db.collection("runs").find({}).toArray();
+      const allPosts = await db.collection("users").find({}).toArray();
       res.json({ status: 200, data: allPosts });
       break;
     case "DELETE":
-      await db.collection("runs").deleteOne({ "_id": new ObjectId(bodyObject._id) });
+      await db.collection("users").deleteOne({ "_id": new ObjectId(bodyObject._id) });
       res.json({ status: 200, data: "deleted" });
       break;
     case "PUT":
       const { _id, ...rest } = bodyObject;
-      await db.collection("runs").updateOne({ "_id": new ObjectId(_id) }, { $set: { ...rest } });
+      await db.collection("users").updateOne({ "_id": new ObjectId(_id) }, { $set: { ...rest } });
       res.json({ status: 200, data: "updated" });
       break;
   }
