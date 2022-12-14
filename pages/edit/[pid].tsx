@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import PageWrapper from '../../components/PageWrapper'
 import TimeInput from '../../components/TimeInput';
 import { server } from '../../config';
-import { outTime } from '../../scripts/scripts';
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 import Link from 'next/link';

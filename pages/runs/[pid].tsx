@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
-import { json } from 'stream/consumers';
 import LoginElement from '../../components/LoginElement';
 import PageWrapper from '../../components/PageWrapper'
 import { server } from '../../config';
@@ -38,7 +37,7 @@ export default function Post(props: { users: user[], host: string }) {
   }, [LoginData.user.runs, pid]);
 
   const deleteRun = async () => {
-    
+
     if (LoginData.user.username === "default") return alert("You cannot change the default user's information.");
 
     LoginData.user.runs = LoginData.user.runs.filter((run: any) => run.id !== pid);
