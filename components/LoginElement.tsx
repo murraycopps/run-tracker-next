@@ -10,7 +10,7 @@ export default function LoginElement({ onLogin = () => { }, users }: { onLogin: 
         const name = e.target.name.value
         const username = e.target.username.value
         const password = e.target.password.value
-        
+
         if (newUser) {
             const user = users.find((user: any) => user.username === username)
             if (user) {
@@ -57,11 +57,13 @@ export default function LoginElement({ onLogin = () => { }, users }: { onLogin: 
             </form>
             <button className={'width-clamp format mt-8 py-4'} onClick={() => setNewUser(!newUser)}>{newUser ? 'Login' : 'New User'}</button>
 
-            <div className="flex flex-col justify-center items-center w-full format width-clamp">
-                <h1 className="title m-8">Default User</h1>
+            {!newUser && <div className="flex flex-col justify-center items-center w-full format width-clamp mt-8 py-4">
+                <h2 className="title m-4">Default User</h2>
                 <p>Username: default</p>
                 <p>Password: password</p>
             </div>
+
+            }
         </>
     )
 }
