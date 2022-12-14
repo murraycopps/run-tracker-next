@@ -49,6 +49,10 @@ export default function NavBar() {
                     <div>New Run</div>
                 </Link>
                 <span className={styles.navbarBorder} />
+                <Link className={`${styles.navbarElement}  ${path == '/profile' ? styles.current : ''}`} href="/profile">
+                    <div>Profile</div>
+                </Link>
+                <span className={styles.navbarBorder} />
             </div> : null}
         </>
     )

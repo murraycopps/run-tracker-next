@@ -185,6 +185,12 @@ a {
   margin-inline: auto;
 }
 
+.input{    
+  height: 3rem;
+  font-size: 2rem;
+  padding-inline: 1rem;
+}
+
 
 @media (max-width: 768px) {
   .title {
