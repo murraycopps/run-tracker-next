@@ -39,6 +39,8 @@ export default function Post(props: { users: user[], host: string }) {
 
     if (LoginData.user.username === "default") return alert("You cannot change the default user's information.");
 
+    if(!confirm("Are you sure you want to delete this run?")) return;
+
     LoginData.user.runs = LoginData.user.runs.filter((run: any) => run.id !== pid);
     await fetch(`${server}${props.host}/api/users`, {
       method: 'PUT',
