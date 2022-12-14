@@ -26,9 +26,7 @@ export default function New(props: { users: user[], host: string }) {
         const distance = e.target.distance.value * 1609.34;
         const notes = e.target.notes.value
         const shoes = e.target.shoes.value
-
-        console.log("Submitted", name, distance, time, date, notes, shoes);
-
+        
         if (!name || !distance || !time || !date || !notes) return alert("Please fill out all fields")
         if (distance < 0) return alert("Distance must be greater than 0")
         if (time < 0) return alert("Time must be greater than 0")
@@ -40,10 +38,10 @@ export default function New(props: { users: user[], host: string }) {
         setDate(new Date());
         e.target.notes.value = "";
         e.target.shoes.value = "";
+
         LoginData.addUserRun({ name, distance, time, date, notes, shoes });
-
-
-        let res = await fetch(`${server}${props.host}/api/users`, {
+        
+        await fetch(`${server}${props.host}/api/users`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

@@ -31,7 +31,6 @@ export default function Post(props: { users: user[], host: string }) {
   const [run, setRun] = useState({} as Run);
 
   useEffect(() => {
-    console.log(LoginData.user.runs, pid);
     const newRun = LoginData.user.runs.find((run: any) => run.id === pid) || {} as Run;
     setRun(newRun);
   }, [LoginData.user.runs, pid]);
