@@ -17,7 +17,7 @@ export default function LoginElement({ onLogin = () => { }, users }: { onLogin: 
                 alert('Username already exists')
             }
             else {
-                LoginData.login(username, password, { name, username, password, runs: [] })
+                LoginData.login({ name, username, password, runs: [] })
                 fetch('/api/users', {
                     method: 'POST',
                     headers: {
@@ -36,7 +36,7 @@ export default function LoginElement({ onLogin = () => { }, users }: { onLogin: 
         else {
             const user = users.find((user: any) => user.username === username && user.password === password)
             if (user) {
-                LoginData.login(username, password, user)
+                LoginData.login(user)
                 onLogin()
             }
             else {

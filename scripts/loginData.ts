@@ -8,7 +8,7 @@ export default class LoginData {
         runs: [] as any,
     }
 
-    static login(username: string, password: string, user: any) {
+    static login(user: any) {
         if (this.isLoggedIn) return
         this.isLoggedIn = true;
         this.user = user;
