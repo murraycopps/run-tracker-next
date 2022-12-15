@@ -48,7 +48,7 @@ export default function LoginElement({ onLogin = () => { }, users }: { onLogin: 
 
     return (
         <>
-            <form className="flex flex-col justify-center items-center w-full format width-clamp mt-16 sm:mt-0" onSubmit={handleSubmit}>
+            <form className="flex flex-col justify-center items-center w-full format width-clamp mt-16 md:mt-0" onSubmit={handleSubmit}>
                 <h1 className="title m-12">{newUser ? 'New User' : 'Login'}</h1>
                 {newUser && <input type="text" placeholder="Name" className={styles.input} autoComplete="on" name="name" id="name" />}
                 <input type="text" placeholder="Username" className={styles.input} autoComplete="on" name="username" id="username" />
